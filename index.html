@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>原神攻略社 · 大学生攻略社区</title>
+<style>
+:root{
+  --blue:#59AFFF; --blue-d:#2E7DD1; --blue-l:#E8F3FF; --blue-ll:#F3F9FF;
+  --gold:#D4AF37; --gold-d:#9A7B1E; --gold-l:#FFF7E2;
+  --bg:#F5F7FA; --ink:#16202B; --sub:#6B7686; --muted:#9AA5B1; --line:#E9EDF2;
+  --card:#FFFFFF; --danger:#E6432C; --ok:#4FA85F;
+  --pyro:#E6432C; --hydro:#17A3B8; --cryo:#5EC2E6; --electro:#8B5CF6;
+  --dendro:#65B84E; --anemo:#72C4B6; --geo:#C8A068;
+  --r-lg:18px; --r-md:14px; --r-sm:10px;
+  --shadow:0 6px 18px rgba(22,32,43,.06);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font); color:var(--ink); background:#DDE5EE;
+  display:flex; justify-content:center; height:100vh; height:100dvh; overflow:hidden;
+}
+.phone{
+  position:relative; width:100%; max-width:430px; height:100vh; height:100dvh; background:var(--bg);
+  display:flex; flex-direction:column; overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 20px 60px rgba(20,40,70,.18);
+}
+.statusbar{
+  height:44px; flex:0 0 44px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 20px; font-size:14px; font-weight:600; letter-spacing:.2px;
+  background:linear-gradient(180deg,#FFFFFF 0%,rgba(255,255,255,.86) 100%);
+  color:var(--ink); position:relative; z-index:3;
+}
+.statusbar .dots{display:flex; gap:5px; align-items:center}
+.statusbar .dot{width:15px;height:3px;border-radius:2px;background:#CBD5E1}
+
+.view{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding-bottom:84px; scrollbar-width:none}
+.view::-webkit-scrollbar{display:none}
+
+/* ---------- 通用 ---------- */
+.page-head{padding:14px 18px 10px; display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
+.page-head h1{margin:0; font-size:24px; letter-spacing:-.4px; font-weight:800}
+.page-head .sub{margin:4px 0 0; font-size:12px; color:var(--sub)}
+.icon-btn{
+  width:36px;height:36px;border-radius:50%;border:none;background:#fff;color:var(--ink);
+  display:grid;place-items:center; box-shadow:0 2px 8px rgba(22,32,43,.06); cursor:pointer;
+  transition:transform .16s ease, background .16s ease;
+}
+.icon-btn:active{transform:scale(.94)}
+.icon-btn:focus-visible, .chip:focus-visible, .tab:focus-visible, .btn:focus-visible{outline:2px solid var(--blue-d); outline-offset:2px}
+.btn{
+  border:none; border-radius:999px; padding:11px 18px; font-size:14px; font-weight:700; font-family:var(--font);
+  cursor:pointer; transition:transform .16s ease, box-shadow .16s ease, opacity .16s ease;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#6FB9FF,#3D93E8); color:#fff; box-shadow:0 6px 14px rgba(61,147,232,.28)}
+.btn-primary:disabled{opacity:.4; box-shadow:none}
+.btn-ghost{background:#fff; color:var(--blue-d); box-shadow:inset 0 0 0 1px rgba(89,175,255,.45)}
+.btn-plain{background:#F1F4F8; color:var(--ink)}
+.btn-danger{background:var(--danger); color:#fff}
+
+.card{background:var(--card); border-radius:var(--r-lg); box-shadow:var(--shadow)}
+.tag{display:inline-flex; align-items:center; gap:4px; font-size:11px; padding:3px 8px; border-radius:6px; font-weight:600; line-height:1.5}
+.tag .d{width:6px;height:6px;border-radius:50%}
+.t-blue{background:var(--blue-l); color:var(--blue-d)}
+.t-gold{background:var(--gold-l); color:var(--gold-d); box-shadow:inset 0 0 0 1px rgba(212,175,55,.35)}
+.t-piro{background:#FDECE9;color:var(--pyro)}
+.t-geo{background:#F7EFE4;color:#8A6428}
+.t-hydro{background:#E6F3F6;color:var(--hydro)}
+.t-elec{background:#F0EAFB;color:#6D3FD3}
+.t-cryo{background:#EAF7FD;color:#2E8FB5}
+
+/* ---------- 首页 ---------- */
+.hero-wrap{padding:4px 16px 0}
+.hero{position:relative; border-radius:20px; overflow:hidden; height:148px; background:#CFE3FF; box-shadow:var(--shadow)}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 62%; display:block}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,32,58,.62) 0%,rgba(11,32,58,.28) 46%,rgba(11,32,58,0) 78%)}
+.hero .hero-txt{position:absolute; left:16px; bottom:14px; right:34%; color:#fff}
+.hero .kicker{font-size:11px; letter-spacing:2px; opacity:.9; font-weight:600}
+  .hero .hero-txt h2{margin:4px 0 3px; font-size:18px; line-height:1.25; letter-spacing:.2px; text-shadow:0 2px 10px rgba(0,20,40,.35)}
+.hero .hero-txt p{margin:0; font-size:11px; opacity:.86}
+
+
+.searchbar{
+  margin:14px 16px 0; display:flex; align-items:center; gap:10px; background:#fff; border-radius:999px;
+  padding:11px 14px; box-shadow:0 3px 12px rgba(22,32,43,.05); cursor:pointer; transition:box-shadow .18s ease;
+}
+.searchbar:active{box-shadow:0 1px 6px rgba(22,32,43,.06)}
+.searchbar svg{flex:0 0 auto; color:var(--muted)}
+.searchbar span{font-size:13px; color:var(--muted); flex:1}
+
+.chips{display:flex; gap:8px; overflow-x:auto; padding:12px 16px 4px; scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto; border:none; background:#fff; color:var(--sub); font-family:var(--font);
+  font-size:12.5px; font-weight:600; padding:7px 13px; border-radius:999px; cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--line); transition:all .18s ease;
+}
+.chip[aria-selected="true"]{background:var(--blue-d); color:#fff; box-shadow:0 4px 10px rgba(46,125,209,.28); font-weight:700}
+
+.list-head{display:flex; align-items:center; justify-content:space-between; padding:14px 18px 8px}
+.list-head h3{margin:0; font-size:14px; font-weight:800; letter-spacing:.2px}
+.list-head .count{font-size:11.5px; color:var(--muted)}
+.list-head .link{font-size:12px; color:var(--blue-d); background:none;border:none;font-family:var(--font);cursor:pointer;font-weight:600}
+
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 16px}
+.g-card{background:#fff; border-radius:var(--r-md); overflow:hidden; box-shadow:0 4px 14px rgba(22,32,43,.05); cursor:pointer; transition:transform .18s ease; display:flex; flex-direction:column}
+.g-card:active{transform:scale(.985)}
+.g-cover{position:relative; aspect-ratio:4/3; overflow:hidden; background:#E8F0FA}
+.g-cover img{width:100%;height:100%;object-fit:cover; display:block}
+.g-cover .elem{position:absolute; top:8px; left:8px; width:22px;height:22px; border-radius:50%; display:grid;place-items:center; background:rgba(255,255,255,.92); box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.g-cover .elem i{width:10px;height:10px;border-radius:50%;display:block}
+.g-cover .hot{position:absolute; right:8px; top:8px; font-size:10px; padding:2px 6px; border-radius:5px; background:rgba(212,175,55,.94); color:#3D2E00; font-weight:700}
+.g-body{padding:9px 10px 10px; display:flex; flex-direction:column; gap:6px; flex:1}
+.g-title{font-size:13px; font-weight:700; line-height:1.4; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:36px}
+.g-meta{display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--muted); margin-top:auto; padding-top:2px}
+.g-meta .av{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#B9D8FF,#6FA9E8)}
+.g-meta .school{color:var(--blue-d); font-weight:600}
+.g-meta .sp{margin-left:auto; display:flex; gap:8px}
+.g-tags{display:flex; gap:5px; flex-wrap:wrap}
+
+/* 骨架屏 */
+.sk{background:#fff; border-radius:var(--r-md); overflow:hidden}
+.sk .bar{background:linear-gradient(90deg,#EDF1F6 25%,#F6F9FC 37%,#EDF1F6 63%); background-size:400% 100%; animation:shine 1.4s ease infinite}
+.sk .cover{aspect-ratio:4/3}
+.sk .l1{height:12px; margin:10px 10px 8px; border-radius:4px; width:80%}
+.sk .l2{height:10px; margin:0 10px 12px; border-radius:4px; width:52%}
+@keyframes shine{0%{background-position:100% 50%}100%{background-position:0 50%}}
+
+/* 空态 / 错误态 */
+.state{display:flex; flex-direction:column; align-items:center; padding:34px 30px 30px; text-align:center}
+.state svg{width:132px;height:104px}
+.state h4{margin:12px 0 6px; font-size:15px; font-weight:800}
+.state p{margin:0; font-size:12.5px; color:var(--sub); line-height:1.7}
+.state .btn{margin-top:16px}
+
+/* ---------- 资讯 ---------- */
+.news-banner{margin:6px 16px 0; border-radius:18px; overflow:hidden; position:relative; height:132px; box-shadow:var(--shadow)}
+.news-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.news-banner .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,32,58,.15),rgba(11,32,58,.6))}
+.news-banner .txt{position:absolute; left:14px; bottom:12px; color:#fff}
+.news-banner .txt .k{font-size:10.5px; letter-spacing:2px; opacity:.9}
+.news-banner .txt h2{margin:3px 0 0; font-size:16px; letter-spacing:.3px}
+.news-list{padding:12px 16px 0; display:flex; flex-direction:column; gap:10px}
+.n-item{display:flex; gap:12px; background:#fff; border-radius:var(--r-md); padding:10px; box-shadow:0 4px 14px rgba(22,32,43,.045); cursor:pointer; transition:transform .16s ease}
+.n-item:active{transform:scale(.99)}
+.n-thumb{width:86px;height:64px;border-radius:10px;overflow:hidden;flex:0 0 auto;background:#E9F0F8}
+.n-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.n-main{flex:1; min-width:0; display:flex; flex-direction:column; gap:5px; justify-content:center}
+.n-main h4{margin:0; font-size:13.5px; line-height:1.4; font-weight:700; display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.n-main .n-meta{display:flex; gap:8px; align-items:center; font-size:10.5px; color:var(--muted)}
+.n-main .n-meta .type{color:var(--blue-d); font-weight:600}
+
+/* ---------- 社区 ---------- */
+.same-school{margin:6px 16px 0; border-radius:18px; padding:14px 16px; color:#fff; background:linear-gradient(120deg,#5AAEFF 0%,#2E7DD1 72%); box-shadow:0 10px 24px rgba(46,125,209,.26); position:relative; overflow:hidden}
+.same-school::after{content:"";position:absolute; right:-30px; top:-40px; width:130px;height:130px;border-radius:50%; background:rgba(255,255,255,.14)}
+.same-school .row{display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:1}
+.same-school .sch{display:flex; align-items:center; gap:8px}
+.same-school .sch b{font-size:15px; letter-spacing:.2px}
+.same-school .sch small{display:block; font-size:11px; opacity:.85; margin-top:2px}
+.same-school .go{background:rgba(255,255,255,.94); color:var(--blue-d); border:none; border-radius:999px; padding:8px 14px; font-size:12.5px; font-weight:700; font-family:var(--font); cursor:pointer}
+.same-school .stats{display:flex; gap:18px; margin-top:12px; position:relative; z-index:1}
+.same-school .stats div{font-size:11px; opacity:.9}
+.same-school .stats div b{display:block; font-size:17px; letter-spacing:.5px; margin-bottom:1px}
+.same-school .stats div b span{font-size:11px; font-weight:500; opacity:.85}
+
+.posts{padding:14px 16px 0; display:flex; flex-direction:column; gap:12px}
+.post{background:#fff; border-radius:var(--r-lg); padding:13px 14px; box-shadow:0 4px 16px rgba(22,32,43,.05)}
+.post .ph{display:flex; align-items:center; gap:9px}
+.post .ph .av{width:34px;height:34px;border-radius:50%; background:linear-gradient(135deg,#CDE4FF,#6FA9E8); display:grid; place-items:center; color:#fff; font-weight:800; font-size:13px}
+.post .ph .who{flex:1; min-width:0}
+.post .ph .who b{font-size:13px; display:block}
+.post .ph .who small{font-size:10.5px; color:var(--muted); display:flex; gap:6px; align-items:center}
+.post .ph .who small .s{color:var(--blue-d); font-weight:600}
+.post .body{margin:10px 0 0; font-size:13px; line-height:1.65; color:#2A3542}
+.post .pimg{margin-top:10px; border-radius:12px; overflow:hidden; aspect-ratio:16/9; background:#EAF1F9}
+.post .pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.post .acts{display:flex; align-items:center; gap:6px; margin-top:10px; color:var(--muted); font-size:12px}
+.act{display:inline-flex; align-items:center; gap:5px; border:none; background:none; padding:6px 8px; border-radius:8px; color:var(--muted); font-family:var(--font); font-size:12px; cursor:pointer; transition:background .16s}
+.act:active{background:#F3F6FA}
+.act.on{color:var(--blue-d)}
+.act.on svg{color:var(--blue-d)}
+.act.gold.on{color:var(--gold-d)}
+.act.gold.on svg{color:var(--gold)}
+.act .num{font-variant-numeric:tabular-nums}
+
+/* ---------- 底部导航 ---------- */
+.tabbar{
+  position:absolute; left:0; right:0; bottom:0; height:66px; padding:0 6px 6px;
+  background:rgba(255,255,255,.94); backdrop-filter:blur(14px); border-top:1px solid rgba(22,32,43,.05);
+  display:flex; align-items:flex-end; justify-content:space-around; z-index:6;
+}
+.tab{flex:1; border:none; background:none; color:var(--muted); font-family:var(--font); font-size:10.5px; font-weight:600; display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 0 6px; cursor:pointer; position:relative}
+.tab svg{width:22px;height:22px}
+.tab[aria-selected="true"]{color:var(--blue-d)}
+.tab[aria-selected="true"] svg{color:var(--blue-d)}
+.tab.mid{padding-bottom:3px}
+.tab.mid .fab{
+  width:48px;height:48px;border-radius:50%; margin-top:-22px; display:grid;place-items:center;
+  background:linear-gradient(140deg,#79BEFF,#2E7DD1); color:#fff; box-shadow:0 8px 20px rgba(46,125,209,.38);
+  border:3px solid #fff;
+}
+.tab.mid .lbl{margin-top:1px}
+.phone.no-tab .tabbar{display:none}
+.phone.no-tab .d-bar,.phone.no-tab .pub-foot,.phone.no-tab .team-foot{bottom:0}
+.phone.no-tab .view{padding-bottom:88px}
+
+/* ---------- 详情 ---------- */
+.detail-hero{position:relative; height:216px; background:#DCE9F8}
+.detail-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.d-topbar{position:absolute; top:10px; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:0 12px; z-index:2}
+.round-btn{width:36px;height:36px;border-radius:50%; border:none; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); display:grid; place-items:center; color:var(--ink); box-shadow:0 3px 10px rgba(0,0,0,.12); cursor:pointer}
+.d-body{margin-top:-18px; position:relative; background:var(--bg); border-radius:20px 20px 0 0; padding:16px 18px 10px}
+.d-body h1{margin:0; font-size:19px; line-height:1.35; letter-spacing:-.2px}
+.d-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px}
+.d-author{display:flex; align-items:center; gap:9px; margin-top:14px; padding:11px 12px; background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(22,32,43,.04)}
+.d-author .av{width:36px;height:36px;border-radius:50%; background:linear-gradient(135deg,#CDE4FF,#6FA9E8); display:grid; place-items:center; color:#fff; font-weight:800}
+.d-author .w{flex:1}
+.d-author .w b{font-size:13px; display:block}
+.d-author .w small{font-size:11px; color:var(--muted)}
+.d-content{font-size:14px; line-height:1.85; color:#26313D; margin-top:14px}
+.d-content p{margin:0 0 12px}
+.d-content .figure{margin:14px 0; border-radius:12px; overflow:hidden; background:#E9F0F8}
+.d-content .figure img{width:100%; display:block}
+.d-content .cap{font-size:11px; color:var(--muted); text-align:center; margin:6px 0 16px}
+.d-content h4{margin:18px 0 8px; font-size:14.5px; color:var(--blue-d); letter-spacing:.2px}
+.d-bar{
+  position:absolute; left:0; right:0; bottom:66px; padding:9px 14px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96); backdrop-filter:blur(14px); border-top:1px solid rgba(22,32,43,.06);
+  display:flex; align-items:center; gap:8px; z-index:5;
+}
+.d-bar .cmt{flex:1; display:flex; align-items:center; gap:8px; background:#F2F5F9; border-radius:999px; padding:9px 14px; color:var(--muted); font-size:12.5px; cursor:pointer}
+.d-bar .icon-act{width:38px;height:38px;border-radius:50%; border:none; background:#F2F5F9; display:grid;place-items:center; color:var(--sub); cursor:pointer; position:relative}
+.d-bar .icon-act.on{color:var(--blue-d); background:var(--blue-l)}
+.d-bar .icon-act.gold.on{color:var(--gold-d); background:var(--gold-l)}
+
+/* 评论 */
+.cmt-list{padding:6px 18px 16px}
+.cmt-list h4{margin:12px 0 10px; font-size:13px; color:var(--sub); font-weight:700; letter-spacing:.3px}
+.cmt{display:flex; gap:9px; padding:9px 0; border-bottom:1px solid var(--line)}
+.cmt .av{width:30px;height:30px;border-radius:50%; background:linear-gradient(135deg,#E2D3FF,#9E7BEA); flex:0 0 auto; display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+.cmt .c{flex:1}
+.cmt .c b{font-size:12px; color:#3A4654}
+.cmt .c p{margin:3px 0 0; font-size:12.5px; line-height:1.6; color:#2A3542}
+.cmt .c small{font-size:10.5px; color:var(--muted)}
+
+/* ---------- 搜索 ---------- */
+.search-page{padding:10px 16px 0}
+.s-box{display:flex; align-items:center; gap:8px; background:#fff; border-radius:999px; padding:9px 6px 9px 14px; box-shadow:0 3px 12px rgba(22,32,43,.06)}
+.s-box input{flex:1; border:none; outline:none; font-family:var(--font); font-size:14px; background:none; color:var(--ink); min-width:0}
+.s-box input::placeholder{color:var(--muted)}
+.s-box .clr{width:26px;height:26px;border-radius:50%;border:none;background:#EFF3F8;color:var(--sub);display:grid;place-items:center;cursor:pointer}
+.s-box .do{margin-left:2px}
+.s-hist{margin-top:16px}
+.s-hist .h{display:flex; align-items:center; justify-content:space-between}
+.s-hist .h b{font-size:12.5px; color:var(--sub); letter-spacing:.3px}
+.s-hist .h button{background:none;border:none;font-family:var(--font);font-size:11.5px;color:var(--muted);cursor:pointer}
+.h-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.h-chips .chip{box-shadow:none; background:#fff; color:#51606F}
+.s-res{padding:6px 16px 0; display:flex; flex-direction:column; gap:9px}
+.r-item{display:flex; gap:11px; background:#fff; border-radius:14px; padding:9px; box-shadow:0 3px 12px rgba(22,32,43,.045); cursor:pointer}
+.r-item img{width:78px;height:58px;border-radius:9px;object-fit:cover;flex:0 0 auto}
+.r-item .m{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:4px}
+.r-item .m b{font-size:13px; line-height:1.35; display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.r-item .m small{font-size:10.5px; color:var(--muted)}
+.r-item .m .kw{color:var(--blue-d); font-weight:700}
+
+/* ---------- 发布 ---------- */
+.pub-head{display:flex; align-items:center; gap:10px; padding:10px 14px}
+.pub-head .t{flex:1; text-align:center; font-size:15px; font-weight:700; letter-spacing:.2px}
+.pub-body{padding:2px 16px 20px}
+.pub-card{background:#fff; border-radius:16px; padding:14px 14px 6px; box-shadow:0 4px 16px rgba(22,32,43,.045)}
+.field{margin-bottom:14px}
+.field label{display:flex; align-items:center; justify-content:space-between; font-size:11.5px; color:var(--sub); font-weight:700; letter-spacing:.4px; margin-bottom:7px}
+.field label .cnt{font-weight:500; color:var(--muted); font-variant-numeric:tabular-nums}
+.inp{width:100%; border:none; background:#F5F8FC; border-radius:12px; padding:12px 13px; font-family:var(--font); font-size:14px; color:var(--ink); outline:none; transition:box-shadow .16s}
+.inp:focus{box-shadow:inset 0 0 0 1.5px rgba(89,175,255,.55); background:#fff}
+.inp.err{box-shadow:inset 0 0 0 1.5px rgba(230,67,44,.55); background:#FFF8F7}
+textarea.inp{resize:none; min-height:128px; line-height:1.7}
+.errmsg{display:none; margin-top:6px; font-size:11.5px; color:var(--danger); font-weight:600}
+.errmsg.show{display:block}
+.tagpick{display:flex; flex-wrap:wrap; gap:8px}
+.tp{border:none; background:#F5F8FC; color:#51606F; font-family:var(--font); font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:999px; cursor:pointer; transition:all .16s}
+.tp[aria-pressed="true"]{background:var(--blue-l); color:var(--blue-d); box-shadow:inset 0 0 0 1.5px rgba(89,175,255,.6); font-weight:700}
+.uploader{display:flex; gap:9px; flex-wrap:wrap}
+.up-tile{width:78px;height:78px;border-radius:12px; background:#F5F8FC; border:1.5px dashed #CBD6E3; display:grid;place-items:center; color:var(--muted); cursor:pointer; position:relative; overflow:hidden}
+.up-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.up-tile .del{position:absolute; top:3px; right:3px; width:18px;height:18px;border-radius:50%; background:rgba(22,32,43,.62); color:#fff; border:none; font-size:11px; display:grid;place-items:center; cursor:pointer}
+.pub-foot{position:absolute; left:0; right:0; bottom:66px; padding:10px 16px; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); border-top:1px solid rgba(22,32,43,.06); display:flex; gap:10px; z-index:5}
+.pub-foot .btn{flex:1}
+.draft-hint{display:flex; align-items:center; gap:6px; margin:10px 2px 0; font-size:11px; color:var(--muted)}
+
+/* ---------- 我的 ---------- */
+.me-hero{margin:6px 16px 0; padding:16px; border-radius:20px; background:linear-gradient(130deg,#5AAEFF,#2E7DD1); color:#fff; position:relative; overflow:hidden; box-shadow:0 12px 28px rgba(46,125,209,.28)}
+.me-hero::after{content:""; position:absolute; right:-40px; bottom:-70px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,.12)}
+.me-row{display:flex; align-items:center; gap:12px; position:relative; z-index:1}
+.me-av{width:58px;height:58px;border-radius:50%; background:linear-gradient(135deg,#FFE7A8,#D4AF37); display:grid;place-items:center; font-size:22px; font-weight:800; color:#5A4500; border:2px solid rgba(255,255,255,.7)}
+.me-info b{font-size:17px; display:block; letter-spacing:.2px}
+.me-info small{display:block; font-size:11px; opacity:.9; margin-top:3px}
+.me-info .uid{display:inline-flex; align-items:center; gap:5px; margin-top:6px; font-size:10.5px; background:rgba(255,255,255,.18); padding:3px 8px; border-radius:6px}
+.me-stats{display:flex; gap:0; margin-top:14px; position:relative; z-index:1}
+.me-stats div{flex:1; text-align:center; font-size:10.5px; opacity:.9}
+.me-stats div b{display:block; font-size:16px; margin-bottom:2px}
+.me-list{margin:16px 16px 0; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(22,32,43,.045)}
+.me-item{display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--line); cursor:pointer; background:#fff; width:100%; border-left:none;border-right:none;border-top:none; font-family:var(--font); text-align:left}
+.me-item:last-child{border-bottom:none}
+.me-item .ico{width:34px;height:34px;border-radius:10px; display:grid;place-items:center; flex:0 0 auto}
+.me-item .ico.blue{background:var(--blue-l); color:var(--blue-d)}
+.me-item .ico.gold{background:var(--gold-l); color:var(--gold-d)}
+.me-item .nm{flex:1; font-size:13.5px; color:var(--ink); font-weight:600}
+.me-item .badge{background:#FFEDEA; color:var(--danger); font-size:10px; font-weight:700; padding:2px 6px; border-radius:999px}
+.me-item .arrow{color:#C2CBD6}
+.toggle-row{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:#fff; font-size:13px}
+.switch{width:44px;height:26px;border-radius:999px;background:#E3E9F0;position:relative;transition:background .2s;cursor:pointer;border:none}
+.switch[aria-checked="true"]{background:var(--blue)}
+.switch::after{content:"";position:absolute; top:3px; left:3px; width:20px;height:20px;border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch[aria-checked="true"]::after{transform:translateX(18px)}
+
+/* 列表页（收藏/帖子/草稿） */
+.sub-head{display:flex;align-items:center;gap:10px;padding:10px 16px 6px}
+.sub-head .t{flex:1; text-align:center; font-size:15px; font-weight:700}
+.fav-list,.post-list{padding:8px 16px 0; display:flex; flex-direction:column; gap:10px}
+.row-card{display:flex; gap:11px; background:#fff; border-radius:14px; padding:10px; box-shadow:0 3px 12px rgba(22,32,43,.045)}
+.row-card img{width:84px;height:62px;border-radius:9px;object-fit:cover;flex:0 0 auto;background:#EAF1F9}
+.row-card .m{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;justify-content:center}
+.row-card .m b{font-size:13px; line-height:1.4; display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.row-card .m small{font-size:10.5px;color:var(--muted)}
+.row-card .mgmt{display:flex; gap:6px; margin-top:2px}
+.mini{border:none;background:#F3F6FA;color:var(--sub);font-family:var(--font);font-size:11px;padding:4px 9px;border-radius:7px;cursor:pointer}
+.mini.danger{background:#FFEDEA;color:var(--danger)}
+
+/* 组队 */
+.team-wrap{padding:8px 16px 0}
+.team-user{background:#fff;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 16px rgba(22,32,43,.05)}
+.team-user .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#FFE2B0,#D4AF37);display:grid;place-items:center;color:#5A4500;font-weight:800}
+.team-user b{font-size:14px; display:block}
+.team-user small{font-size:11px;color:var(--muted)}
+.team-card{margin-top:12px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(22,32,43,.05)}
+.team-card h2{margin:0;font-size:17px;letter-spacing:-.2px}
+.team-card .desc{margin-top:10px;font-size:13.5px;line-height:1.75;color:#2A3542}
+.team-card .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.team-card .meta span{font-size:11.5px;color:#51606F;background:#F4F7FB;padding:5px 9px;border-radius:8px;display:inline-flex;align-items:center;gap:5px}
+.members{margin-top:14px}
+.members .lbl{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--sub);font-weight:700}
+.members .lbl b{color:var(--blue-d)}
+.members .avs{display:flex;gap:9px;margin-top:9px;align-items:center}
+.mav{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#CDE4FF,#6FA9E8);display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+.mav.empty{background:#F1F4F8;color:#B2BCC8;border:1.5px dashed #CBD6E3;font-size:17px}
+.team-foot{position:absolute;left:0;right:0;bottom:66px;padding:10px 16px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid rgba(22,32,43,.06);display:flex;gap:10px;z-index:5}
+.team-foot .btn{flex:1}
+
+/* ---------- Toast / 弹窗 / 面板 ---------- */
+.toast{position:absolute; left:50%; bottom:110px; transform:translate(-50%,12px); background:rgba(22,32,43,.88); color:#fff; font-size:12.5px; padding:11px 16px; border-radius:12px; max-width:78%; text-align:center; line-height:1.5; opacity:0; pointer-events:none; transition:opacity .22s ease, transform .22s ease; z-index:20; backdrop-filter:blur(6px)}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+
+.mask{position:absolute; inset:0; background:rgba(12,20,30,.42); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:15; padding:0 30px}
+.mask.show{opacity:1; pointer-events:auto}
+.dialog{width:100%; max-width:300px; background:#fff; border-radius:18px; overflow:hidden; transform:scale(.94); transition:transform .2s ease; box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mask.show .dialog{transform:scale(1)}
+.dialog .dh{padding:20px 20px 6px; font-size:16px; font-weight:800; text-align:center}
+.dialog .dc{padding:4px 20px 18px; font-size:13px; line-height:1.65; color:var(--sub); text-align:center}
+.dialog .df{display:flex; border-top:1px solid var(--line)}
+.dialog .df button{flex:1; border:none; background:none; padding:14px 0; font-family:var(--font); font-size:14.5px; cursor:pointer; font-weight:600}
+.dialog .df button.cancel{color:var(--sub); border-right:1px solid var(--line)}
+.dialog .df button.ok{color:var(--blue-d)}
+.dialog .df button.ok.danger{color:var(--danger)}
+
+.sheet-mask{position:absolute; inset:0; background:rgba(12,20,30,.4); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .2s; z-index:16}
+.sheet-mask.show{opacity:1; pointer-events:auto}
+.sheet{width:100%; background:#fff; border-radius:20px 20px 0 0; padding:8px 0 calc(10px + env(safe-area-inset-bottom)); transform:translateY(100%); transition:transform .24s cubic-bezier(.2,.8,.3,1)}
+.sheet-mask.show .sheet{transform:translateY(0)}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:#D8DFE8;margin:6px auto 8px}
+.sheet .st{padding:10px 18px 6px; font-size:13px; font-weight:800; color:var(--sub); letter-spacing:.3px}
+.sheet .opt{width:100%;border:none;background:none;padding:14px 18px;font-family:var(--font);font-size:14px;text-align:left;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.sheet .opt:active{background:#F5F8FC}
+.sheet .opt.on{color:var(--blue-d);font-weight:700}
+.sheet .cancel{width:100%;border:none;background:#F5F8FC;padding:14px;font-family:var(--font);font-size:14px;color:var(--sub);cursor:pointer;margin-top:6px}
+
+/* 加载态遮罩（提交中） */
+.loading-dot{display:inline-block; width:16px;height:16px;border-radius:50%; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; animation:spin .8s linear infinite; vertical-align:-3px; margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="statusbar">
+    <span>9:41</span>
+    <div class="dots" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><path d="M1 9.5h2M5.5 7.5v2M5.5 7.5h0" stroke="#16202B" stroke-width="1.4"/><path d="M5.5 7.5h2M10 5v4.5M10 5h0" stroke="#16202B" stroke-width="1.4"/><rect x="13" y="3" width="3" height="6.5" rx="1" fill="#16202B"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M2 4.5c3.5-3 8.5-3 12 0M4 7c2.3-2 5.7-2 8 0M6.5 9.4c1-1 2.5-1 3.5 0" stroke="#16202B" stroke-width="1.3"/></svg>
+      <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="1" y="1.5" width="19" height="8" rx="2" stroke="#16202B" stroke-width="1"/><rect x="2.5" y="3" width="14" height="5" rx="1" fill="#16202B"/><rect x="21" y="4" width="2" height="3.5" rx="1" fill="#16202B"/></svg>
+    </div>
+  </div>
+
+  <main class="view" id="view" aria-live="polite"></main>
+
+  <nav class="tabbar" id="tabbar" aria-label="主导航">
+    <button class="tab" data-tab="home" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 20v-5h6v5" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span>攻略库</span>
+    </button>
+    <button class="tab" data-tab="news" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M7.5 9h6M7.5 12.5h9M7.5 16h5" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span>资讯爆料</span>
+    </button>
+    <button class="tab mid" data-tab="publish" aria-selected="false">
+      <span class="fab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+      <span class="lbl">发布</span>
+    </button>
+    <button class="tab" data-tab="square" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.2" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="10" r="2.3" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 19c0-2.6 2.5-4.2 5.5-4.2s5.5 1.6 5.5 4.2M14.6 15c2.4 0 4.4 1.3 4.4 3.9" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span>社区广场</span>
+    </button>
+    <button class="tab" data-tab="me" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M5 19.5c0-3.5 3.1-5.6 7-5.6s7 2.1 7 5.6" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span>我的</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="mask" id="mask" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="dialog" id="dialog">
+      <div class="dh" id="dlgTitle"></div>
+      <div class="dc" id="dlgContent"></div>
+      <div class="df">
+        <button class="cancel" id="dlgCancel">取消</button>
+        <button class="ok" id="dlgOk">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-mask" id="sheetMask" aria-hidden="true">
+    <div class="sheet" id="sheet">
+      <div class="grab"></div>
+      <div class="st" id="sheetTitle">页面状态演示</div>
+      <div id="sheetBody"></div>
+      <button class="cancel" id="sheetCancel">取消</button>
+    </div>
+  </div>
+</div>
+<script>
+/* ===== 数据与状态（内联，无外部依赖） ===== */
+const IMG = {
+  hero:'https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/EPM2bP4CjoTvAZxrrwMcQPjJnff',
+  pyro:'https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/E87tbuChQonCfPx0MeuclmihnJb',
+  geo:'https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/EfBDbjF0DoWnlNxpPsYcspyFn1d',
+  hydro:'https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/PFAEbggv3oFmK4xfSh0c7vp0nbf',
+  electro:'https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/QjBIbGHOpo62yoxmBQ3c9SEOn5g'
+};
+const ELEM = {
+  pyro:{name:'火',color:'#E6432C',cls:'t-piro'},
+  geo:{name:'岩',color:'#C8A068',cls:'t-geo'},
+  hydro:{name:'水',color:'#17A3B8',cls:'t-hydro'},
+  electro:{name:'雷',color:'#8B5CF6',cls:'t-elec'},
+  dendro:{name:'草',color:'#65B84E',cls:'t-blue'}
+};
+
+const GUIDES = [
+  {id:'g1',title:'胡桃零氪配队：蒸发流 12 层实测',author:'荧',school:'安阳师范',elem:'pyro',hot:true,cover:IMG.pyro,
+   tags:['角色攻略','4.8版本','新手推荐'],likes:1286,favs:432,date:'10-28',
+   body:[
+    '胡桃的核心输出全靠重击与血梅香，因此配队只需要保证两件事：稳定的水附着，以及不让血线掉到危险区。零氪配置下，行秋几乎不可替代。',
+    '推荐队伍：胡桃 + 行秋 + 钟离 + 夜兰（或阿贝多）。行秋提供高频水附着与减伤，钟离负责护盾与减抗，夜兰补足后台输出。没有夜兰时，用阿贝多补输出也够打。',
+    '圣遗物：胡桃四件套首选魔女，主词条生命沙、火伤杯、暴击头；行秋用绝缘四件套，堆充能与暴击；钟离千岩四件套只堆生命。',
+    '手法顺序：钟离 E → 行秋 Q → 夜兰 EQ → 胡桃 E 后重击三次循环。血线压到 50% 以下再开 E，伤害才有意义。'
+   ]},
+  {id:'g2',title:'深渊 12 层满星：站位与出场顺序',author:'小鹿',school:'郑州大学',elem:'electro',hot:true,cover:IMG.electro,
+   tags:['深渊','进阶级'],likes:986,favs:301,date:'10-26',
+   body:['12 层的关键不在面板，而在出场顺序。上半建议带一支有稳定护盾的队伍，下半留给爆发队。','第一间先清两翼的小怪，再处理中间的大体型敌人，避免被夹击；第二间注意躲避地面标记，站到边缘再输出；第三间留一个大招给收尾。']},
+  {id:'g3',title:'钟离护盾流养成：生命堆到多少够用',author:'岩心',school:'河南大学',elem:'geo',cover:IMG.geo,
+   tags:['角色攻略','圣遗物配装'],likes:742,favs:210,date:'10-24',
+   body:['钟离的护盾量只吃生命值加成与技能等级。0 命状态下，把生命堆到 4 万左右，配合 8 级 E，已经能覆盖绝大多数场景。','圣遗物四件套优先千岩牢固，若没有成型套装，可用二生命 + 二生命过渡；武器优先护摩之杖或黑缨枪。']},
+  {id:'g4',title:'芙宁娜水队入门：不靠满命也能打',author:'海露',school:'洛阳师范',elem:'hydro',cover:IMG.hydro,
+   tags:['角色攻略','新手推荐'],likes:655,favs:188,date:'10-22',
+   body:['芙宁娜的强度来自全队生命值变化带来的增伤，因此队伍里必须有一个能主动扣血与回血的角色。','常见搭配：芙宁娜 + 那维莱特 + 万叶 + 治疗位；没有那维莱特时，用神里绫人过渡也能打出稳定伤害。']},
+  {id:'g5',title:'新手避坑：树脂千万别乱花',author:'树莓',school:'安阳工学院',elem:'dendro',cover:IMG.hydro,
+   tags:['新手避坑','养成规划'],likes:1502,favs:520,date:'10-20',
+   body:['树脂优先顺序：角色突破材料 → 天赋书 → 圣遗物。前期不要碰圣遗物本，先把一队主力拉到 80 级。','每周的周本记得打，掉落的材料后期会很缺；纪行和每日委托是稳定收入，别漏。']},
+  {id:'g6',title:'草队速成：纳西妲为核心的低成本队',author:'青提',school:'郑州轻工业',elem:'dendro',cover:IMG.hydro,
+   tags:['角色攻略','配队'],likes:534,favs:143,date:'10-18',
+   body:['纳西妲提供大范围草附着，配一个雷系后台就能稳定触发激化，成本极低。','推荐：纳西妲 + 久岐忍 + 行秋 + 万叶；没有万叶用砂糖。']}
+];
+const NEWS = [
+  {id:'n1',title:'4.8 版本前瞻：新角色卡池与活动一览',type:'版本前瞻',time:'2 小时前',cover:IMG.hero,body:'4.8 版本将上线两位新角色，同时开放限时活动「鸣海纪行」。前瞻直播定于本周五 20:00，兑换码共三个，有效期 24 小时。'},
+  {id:'n2',title:'限时活动「风行迷踪」玩法与奖励说明',type:'活动',time:'昨天',cover:IMG.electro,body:'本次活动为追逐玩法，四人一组，躲藏方可以变成场景物件。完成五局即可拿到全部原石奖励，建议组队参与。'},
+  {id:'n3',title:'深渊轮换：本期怪物阵容与推荐队伍',type:'深渊',time:'2 天前',cover:IMG.geo,body:'本期深渊上半以单体高血量敌人为主，下半增加了多波小怪。推荐上半带护盾队，下半带范围爆发队。'},
+  {id:'n4',title:'卡池规划：这期该不该抽',type:'卡池',time:'3 天前',cover:IMG.pyro,body:'如果已有成型主 C，本期可以跳过，把原石留给下版本；缺水系辅助的玩家可以抽一只四星过渡。'},
+  {id:'n5',title:'养成材料速查：新角色突破所需清单',type:'攻略',time:'4 天前',cover:IMG.hydro,body:'新角色突破共需 168 个地区特产、46 个首领材料与 9 本天赋书，建议提前采集。'}
+];
+const POSTS = [
+  {id:'p1',who:'稻妻打工人',school:'安阳师范',time:'12 分钟前',text:'今日抽卡欧了！四十抽出了两个金，终于把胡桃补到一命，深渊有救了。',img:IMG.pyro,likes:32,comments:8,elem:'pyro'},
+  {id:'p2',who:'深渊钉子户',school:'郑州大学',time:'1 小时前',text:'求组队打深渊 12 层，周四周五晚 8 点，缺一个会玩行秋的朋友，已有胡桃和钟离。',img:IMG.electro,likes:18,comments:12,elem:'electro',team:true},
+  {id:'p3',who:'整活冠军',school:'河南大学',time:'3 小时前',text:'把钟离的盾叠到四万血是什么体验？站在怪堆里挂机五分钟，血条纹丝不动。',img:IMG.geo,likes:76,comments:21,elem:'geo'},
+  {id:'p4',who:'萌新第一天',school:'安阳工学院',time:'昨天',text:'刚入坑第三天，树脂全花在圣遗物本了……看完攻略才知道应该先拉等级，血亏。',img:IMG.hydro,likes:41,comments:15,elem:'hydro'}
+];
+const COMMENTS = {
+  g1:[{who:'小鹿',text:'行秋换夜兰之后循环确实顺了很多，感谢！',time:'2 小时前'},{who:'树莓',text:'血线压 50% 这个点很关键，之前一直打不出伤害。',time:'昨天'}],
+  g2:[{who:'荧',text:'上半带钟离真的稳，站角落输出就行。',time:'3 小时前'}],
+  g3:[{who:'岩心',text:'四万血 + 8 级 E 确实够用了。',time:'昨天'}]
+};
+
+const store = {
+  liked:{}, faved:{}, counted:{}, applied:{}, drafts:[], myPosts:[],
+  meFav:[], msgs:3, loggedIn:true, homeState:'normal', searchState:'normal'
+};
+
+/* ===== 工具 ===== */
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = str=>String(str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toastEl = $('#toast');
+let toastTimer=null;
+function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2000); }
+
+let dialogResolve=null;
+function confirmDialog({title,content,okText='确定',cancelText='取消',danger=false}){
+  $('#dlgTitle').textContent=title;
+  $('#dlgContent').textContent=content;
+  $('#dlgOk').textContent=okText;
+  $('#dlgOk').className='ok'+(danger?' danger':'');
+  $('#dlgCancel').textContent=cancelText;
+  const mask=$('#mask'); mask.classList.add('show'); mask.setAttribute('aria-hidden','false');
+  return new Promise(res=>{ dialogResolve=res; });
+}
+function closeDialog(v){
+  const mask=$('#mask'); mask.classList.remove('show'); mask.setAttribute('aria-hidden','true');
+  if(dialogResolve){ const r=dialogResolve; dialogResolve=null; r(v); }
+}
+$('#dlgCancel').addEventListener('click',()=>closeDialog(false));
+$('#dlgOk').addEventListener('click',()=>closeDialog(true));
+$('#mask').addEventListener('click',e=>{ if(e.target.id==='mask') closeDialog(false); });
+
+function openSheet(title, bodyHTML){
+  $('#sheetTitle').textContent=title; $('#sheetBody').innerHTML=bodyHTML;
+  const m=$('#sheetMask'); m.classList.add('show'); m.setAttribute('aria-hidden','false');
+}
+function closeSheet(){ $('#sheetMask').classList.remove('show'); $('#sheetMask').setAttribute('aria-hidden','true'); }
+$('#sheetCancel').addEventListener('click',closeSheet);
+$('#sheetMask').addEventListener('click',e=>{ if(e.target.id==='sheetMask') closeSheet(); });
+
+const SAVE = ()=> { try{ localStorage.setItem('ysgzs', JSON.stringify({faved:store.faved,drafts:store.drafts,liked:store.liked,myPosts:store.myPosts,applied:store.applied})); }catch(e){} };
+const LOAD = ()=> { try{ const s=JSON.parse(localStorage.getItem('ysgzs')||'{}'); Object.assign(store,{faved:s.faved||{},drafts:s.drafts||[],liked:s.liked||{},myPosts:s.myPosts||[],applied:s.applied||{}}); }catch(e){} };
+LOAD();
+if(!store.myPosts.length){
+  store.myPosts=[
+    {id:'m1',title:'胡桃零氪配队：蒸发流 12 层实测',cover:IMG.pyro,time:'10-28',likes:1286},
+    {id:'m2',title:'深渊 12 层满星：站位与出场顺序',cover:IMG.electro,time:'10-26',likes:986}
+  ];
+}
+
+/* ===== 视图渲染 ===== */
+const view = $('#view');
+let currentRoute='home';
+
+function setTabActive(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', String(t.dataset.tab===tab)));
+}
+
+function go(route){ location.hash = '#/'+route; }
+
+window.addEventListener('hashchange',()=>{ render(); });
+function parseHash(){
+  const h=location.hash.replace(/^#\//,'')||'home';
+  const [name,id]=h.split('/');
+  return {name,id};
+}
+
+function render(){
+  const {name,id}=parseHash();
+  currentRoute=name;
+  const primary=['home','news','square','publish','me'];
+  const subPages=['publish','detail','search','team','newsdetail','fav','myposts','drafts','msgs','settings'];
+  if(primary.includes(name)) setTabActive(name);
+  else setTabActive('');
+  $('#phone').classList.toggle('no-tab', subPages.includes(name));
+  view.scrollTop=0;
+  if(name==='home') view.innerHTML=HomeView();
+  else if(name==='news') view.innerHTML=NewsView();
+  else if(name==='square') view.innerHTML=SquareView();
+  else if(name==='publish') view.innerHTML=PublishView();
+  else if(name==='me') view.innerHTML=MeView();
+  else if(name==='detail') view.innerHTML=DetailView(id);
+  else if(name==='search') view.innerHTML=SearchView();
+  else if(name==='team') view.innerHTML=TeamView(id||'p2');
+  else if(name==='fav') view.innerHTML=FavView();
+  else if(name==='myposts') view.innerHTML=MyPostsView();
+  else if(name==='drafts') view.innerHTML=DraftsView();
+  else if(name==='msgs') view.innerHTML=MsgsView();
+  else if(name==='settings') view.innerHTML=SettingsView();
+  else if(name==='newsdetail') view.innerHTML=NewsDetailView(id);
+  else view.innerHTML=HomeView();
+  bindViewEvents();
+}
+
+/* ---------- 首页 ---------- */
+function guideCard(g){
+  const e=ELEM[g.elem]||ELEM.pyro;
+  return `<article class="g-card" data-open="detail/${g.id}" role="button" tabindex="0" aria-label="${esc(g.title)}">
+    <div class="g-cover">
+      <img src="${g.cover}" alt="">
+      <span class="elem" title="${e.name}元素"><i style="background:${e.color}"></i></span>
+      ${g.hot?'<span class="hot">精华</span>':''}
+    </div>
+    <div class="g-body">
+      <h3 class="g-title">${esc(g.title)}</h3>
+      <div class="g-tags">${g.tags.map(t=>`<span class="tag ${t.includes('新手')?'t-gold':'t-blue'}">${esc(t)}</span>`).join('')}</div>
+      <div class="g-meta"><span class="av"></span><span>${esc(g.author)}</span><span class="school">${esc(g.school)}</span>
+        <span class="sp"><span>♡ ${g.likes}</span><span>☆ ${g.favs}</span></span></div>
+    </div>
+  </article>`;
+}
+function skeletonGrid(n=4){
+  return `<div class="grid">${Array.from({length:n}).map(()=>`
+    <div class="sk"><div class="bar cover"></div><div class="bar l1"></div><div class="bar l2"></div></div>`).join('')}</div>`;
+}
+function emptyState(){
+  return `<div class="state">
+    <svg viewBox="0 0 132 104" fill="none" aria-hidden="true">
+      <ellipse cx="66" cy="92" rx="46" ry="6" fill="#E7EDF5"/>
+      <rect x="30" y="26" width="72" height="54" rx="8" fill="#fff" stroke="#D6E3F2"/>
+      <path d="M38 40h30M38 50h44M38 60h22" stroke="#D6E3F2" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="96" cy="30" r="14" fill="#EAF5FF"/>
+      <path d="M96 22v16M88 30h16" stroke="#59AFFF" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    </svg>
+    <h4>这个分类还没有攻略</h4>
+    <p>成为第一个分享的人吧，<br>你的通关心得可能正好帮到同校的玩家。</p>
+    <button class="btn btn-primary" data-go="publish">去发布第一篇攻略</button>
+  </div>`;
+}
+function errorState(msg='网络好像走丢了'){
+  return `<div class="state">
+    <svg viewBox="0 0 132 104" fill="none" aria-hidden="true">
+      <ellipse cx="66" cy="92" rx="44" ry="6" fill="#E7EDF5"/>
+      <circle cx="66" cy="46" r="26" fill="#FFF1EE"/>
+      <path d="M56 38c2-3 5-4 8-4s6 1 8 4" stroke="#E6432C" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>
+      <path d="M56 58c5-4 15-4 20 0" stroke="#E6432C" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>
+      <path d="M34 18l64 60" stroke="#E6432C" stroke-width="2" opacity=".25"/>
+    </svg>
+    <h4>${esc(msg)}</h4>
+    <p>请检查网络连接后重试，<br>已加载的内容不会丢失。</p>
+    <button class="btn btn-primary" data-act="retry">重新加载</button>
+  </div>`;
+}
+function HomeView(){
+  const st=store.homeState;
+  const list = st==='empty' ? [] : GUIDES;
+  const body = st==='loading' ? skeletonGrid(4)
+    : st==='error' ? errorState()
+    : (list.length ? `<div class="grid">${list.map(guideCard).join('')}</div>` : emptyState());
+  return `
+  <div class="page-head">
+    <div><h1>攻略库</h1><p class="sub">同一款游戏，同一种语言</p></div>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" data-go="search" aria-label="搜索"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      <button class="icon-btn" data-act="states" aria-label="页面状态演示"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="19" cy="12" r="1.7" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+  <div class="hero-wrap">
+    <div class="hero">
+      <img src="${IMG.hero}" alt="提瓦特大陆清晨远景">
+      <div class="scrim"></div>
+      <div class="hero-txt">
+        <span class="kicker">4.8 版本前瞻</span>
+        <h2>鸣海纪行 · 周五 20:00</h2>
+        <p>三位新角色 + 限时活动，兑换码见资讯页</p>
+      </div>
+    </div>
+  </div>
+  <div class="searchbar" data-go="search" role="button" tabindex="0">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="2"/></svg>
+    <span>搜角色、圣遗物、深渊打法…</span>
+  </div>
+  <div class="chips" role="tablist" aria-label="攻略分类">
+    ${['全部','角色攻略','圣遗物配装','深渊','活动爆料','新手避坑'].map((c,i)=>`<button class="chip" role="tab" aria-selected="${i===0}" data-act="filter" data-v="${c}">${c}</button>`).join('')}
+  </div>
+  <div class="list-head"><h3>${st==='loading'?'正在加载':(st==='error'?'加载失败':'为你推荐')}</h3><span class="count">${st==='normal'?GUIDES.length+' 篇':'—'}</span></div>
+  ${body}
+  <div style="height:14px"></div>`;
+}
+
+/* ---------- 资讯 ---------- */
+function NewsView(){
+  return `
+  <div class="page-head"><div><h1>资讯爆料</h1><p class="sub">版本、卡池、活动，都在这里</p></div>
+    <button class="icon-btn" data-act="refresh" aria-label="刷新"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 1 0-2.6 6.3" stroke="currentColor" stroke-width="1.8"/><path d="M20 4v7h-7" stroke="currentColor" stroke-width="1.8"/></svg></button>
+  </div>
+  <div class="news-banner" data-open="newsdetail/n1" role="button" tabindex="0">
+    <img src="${IMG.hero}" alt="">
+    <div class="ov"></div>
+    <div class="txt"><div class="k">版本前瞻</div><h2>4.8 新角色卡池与限时活动一览</h2></div>
+  </div>
+  <div class="news-list">
+    ${NEWS.map(n=>`
+      <div class="n-item" data-open="newsdetail/${n.id}" role="button" tabindex="0">
+        <div class="n-thumb"><img src="${n.cover}" alt=""></div>
+        <div class="n-main">
+          <h4>${esc(n.title)}</h4>
+          <div class="n-meta"><span class="type">${esc(n.type)}</span><span>${esc(n.time)}</span></div>
+        </div>
+      </div>`).join('')}
+  </div><div style="height:14px"></div>`;
+}
+
+/* ---------- 社区 ---------- */
+function postCard(p){
+  return `<article class="post" data-post="${p.id}">
+    <div class="ph">
+      <div class="av">${esc(p.who.slice(0,1))}</div>
+      <div class="who"><b>${esc(p.who)}</b><small><span class="s">${esc(p.school)}</span> · ${esc(p.time)}</small></div>
+      ${p.team?'<span class="tag t-gold">组队招募</span>':''}
+    </div>
+    <p class="body">${esc(p.text)}</p>
+    ${p.img?`<div class="pimg"><img src="${p.img}" alt=""></div>`:''}
+    <div class="acts">
+      <button class="act ${store.liked[p.id]?'on':''}" data-like="${p.id}" aria-pressed="${!!store.liked[p.id]}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="${store.liked[p.id]?'currentColor':'none'}"><path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="num">${p.likes+(store.liked[p.id]?1:0)}</span>
+      </button>
+      <button class="act" data-comment="${p.id}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 12c0 4-3.6 7-8 7-1 0-2-.1-2.9-.4L5 20l1.2-3.2A6.6 6.6 0 0 1 4 12c0-4 3.6-7 8-7s8 3 8 7Z" stroke="currentColor" stroke-width="1.6"/></svg><span class="num">${p.comments}</span></button>
+      <button class="act" data-share="p"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5M19 5 10 14" stroke="currentColor" stroke-width="1.6"/><path d="M9 6H6a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-3" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      ${p.team?`<button class="act" style="margin-left:auto;color:#8A6D1F" data-open="team/${p.id}">查看招募 ›</button>`:''}
+    </div>
+  </article>`;
+}
+function SquareView(){
+  return `
+  <div class="page-head"><div><h1>社区广场</h1><p class="sub">同校同好，随时开黑</p></div>
+    <button class="icon-btn" data-go="search" aria-label="搜索"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8"/></svg></button>
+  </div>
+  <div class="same-school">
+    <div class="row">
+      <div class="sch"><div>
+        <b>本校同好</b>
+        <small>安阳师范学院 · 原神玩家圈</small>
+      </div></div>
+      <button class="go" data-act="match">匹配搭子</button>
+    </div>
+    <div class="stats">
+      <div><b>128<span> 人</span></b>已加入</div>
+      <div><b>12<span> 人</span></b>当前在线</div>
+      <div><b>4</b>组队招募中</div>
+    </div>
+  </div>
+  <div class="posts">${POSTS.map(postCard).join('')}</div>
+  <div style="height:14px"></div>`;
+}
+
+/* ---------- 发布 ---------- */
+const pubTemp = {title:'',tags:[],body:'',imgs:[]};
+function PublishView(){
+  return `
+  <div class="pub-head">
+    <button class="icon-btn" data-act="pub-back" aria-label="返回"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="1.9"/></svg></button>
+    <div class="t">发布攻略</div>
+    <button class="btn btn-plain" style="padding:8px 12px;font-size:12px" data-act="save-draft">保存草稿</button>
+  </div>
+  <div class="pub-body">
+    <div class="pub-card">
+      <div class="field">
+        <label>标题<span class="cnt"><b id="cntTitle">0</b>/30</span></label>
+        <input class="inp" id="pTitle" maxlength="30" placeholder="例如：胡桃零氪配队实测" value="${esc(pubTemp.title)}">
+        <div class="errmsg" id="errTitle">请填写标题</div>
+      </div>
+      <div class="field">
+        <label>元素标签<span class="cnt">可多选</span></label>
+        <div class="tagpick" id="tagpick">
+          ${[['角色攻略','blue'],['深渊','blue'],['圣遗物','blue'],['新手避坑','gold'],['活动','blue']].map(([t])=>`
+            <button class="tp" data-tag="${t}" aria-pressed="${pubTemp.tags.includes(t)}">${t}</button>`).join('')}
+        </div>
+        <div class="errmsg" id="errTag">请至少选择一个标签</div>
+      </div>
+      <div class="field">
+        <label>正文<span class="cnt"><b id="cntBody">0</b>/500</span></label>
+        <textarea class="inp" id="pBody" maxlength="500" placeholder="分享你的通关心得，越具体越有用…">${esc(pubTemp.body)}</textarea>
+        <div class="errmsg" id="errBody">写点什么再发布吧</div>
+      </div>
+      <div class="field">
+        <label>配图<span class="cnt">最多 3 张</span></label>
+        <div class="uploader" id="uploader">
+          ${pubTemp.imgs.map((src,i)=>`<div class="up-tile"><img src="${src}" alt=""><button class="del" data-del-img="${i}" aria-label="移除">×</button></div>`).join('')}
+          ${pubTemp.imgs.length<3?`<button class="up-tile" data-act="add-img" aria-label="添加图片"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="1.8"/></svg></button>`:''}
+        </div>
+      </div>
+    </div>
+    <div class="pub-card" style="margin-top:12px;padding:14px">
+      <div style="font-size:12px;font-weight:800;color:var(--sub);letter-spacing:.4px;margin-bottom:8px">写好一篇攻略的三件事</div>
+      <div style="font-size:12.5px;line-height:1.85;color:#3A4654">
+        1. 写清版本号与队伍配置，别人才能照着抄。<br>
+        2. 标注面板门槛与命座要求，避免误导新手。<br>
+        3. 配上关键截图，站位和伤害数字比形容词有用。
+      </div>
+    </div>
+    <div class="draft-hint">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5"/></svg>
+      内容每 10 秒自动保存到草稿箱
+    </div>
+  </div>
+  <div class="pub-foot">
+    <button class="btn btn-ghost" data-act="save-draft">存草稿</button>
+    <button class="btn btn-primary" id="btnPublish" data-act="publish">发布</button>
+  </div>`;
+}
+
+/* ---------- 我的 ---------- */
+function MeView(){
+  return `
+  <div class="page-head"><div><h1>我的</h1><p class="sub">你的攻略与收藏</p></div>
+    <button class="icon-btn" data-go="settings" aria-label="设置"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  </div>
+  <div class="me-hero">
+    <div class="me-row">
+      <div class="me-av">荧</div>
+      <div class="me-info">
+        <b>旅行者·荧</b>
+        <small>安阳师范学院 · 冒险等阶 56</small>
+        <span class="uid">UID 800123456</span>
+      </div>
+    </div>
+    <div class="me-stats">
+      <div><b>${store.myPosts.length}</b>发布攻略</div>
+      <div><b>${Object.keys(store.faved).length}</b>收藏</div>
+      <div><b>36</b>获赞</div>
+      <div><b>4</b>组队</div>
+    </div>
+  </div>
+  <div class="me-list">
+    <button class="me-item" data-go="fav"><span class="ico gold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m12 4 2.4 5 5.6.8-4 3.9.9 5.5L12 16.6 7.1 19.2l.9-5.5-4-3.9 5.6-.8L12 4Z" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="nm">我的收藏</span><span class="arrow">›</span></button>
+    <button class="me-item" data-go="myposts"><span class="ico blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 9h8M8 13h8M8 16h4" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="nm">我的帖子</span><span class="arrow">›</span></button>
+    <button class="me-item" data-go="drafts"><span class="ico blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 5h9l3 3v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h7M8 15h5" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="nm">草稿箱</span><span class="arrow">›</span><span class="badge" style="${store.drafts.length?'':'display:none'}">${store.drafts.length}</span></button>
+    <button class="me-item" data-go="msgs"><span class="ico gold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12c0 3.5-3.1 6-7 6-1 0-2-.1-2.8-.4L5 19l1.1-2.9A5.7 5.7 0 0 1 5 12c0-3.5 3.1-6 7-6s7 2.5 7 6Z" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="nm">消息通知</span><span class="badge" style="${store.msgs?'':'display:none'}">${store.msgs}</span><span class="arrow">›</span></button>
+    <button class="me-item" data-go="settings"><span class="ico blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="nm">设置</span><span class="arrow">›</span></button>
+  </div>
+  <div style="height:14px"></div>`;
+}
+
+/* ---------- 详情 ---------- */
+function DetailView(id){
+  const g=GUIDES.find(x=>x.id===id);
+  if(!g) return `<div class="sub-head"><button class="icon-btn" data-go="home">‹</button><div class="t">攻略已不存在</div><div style="width:36px"></div></div>${errorState('该攻略已被作者删除')}`;
+  const e=ELEM[g.elem]||ELEM.pyro;
+  const liked=!!store.liked[g.id], faved=!!store.faved[g.id];
+  const comments=[...(COMMENTS[g.id]||[]), ...(store.counted[g.id]?[{who:'我',text:store.counted[g.id],time:'刚刚'}]:[])];
+  return `
+  <div class="detail-hero">
+    <img src="${g.cover}" alt="">
+    <div class="d-topbar">
+      <button class="round-btn" data-back aria-label="返回"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="1.9"/></svg></button>
+      <button class="round-btn" data-share="g" aria-label="分享"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5M19 5 10 14" stroke="currentColor" stroke-width="1.7"/><path d="M9 6H6a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-3" stroke="currentColor" stroke-width="1.7"/></svg></button>
+    </div>
+  </div>
+  <div class="d-body">
+    <h1>${esc(g.title)}</h1>
+    <div class="d-tags">
+      <span class="tag ${e.cls}"><i class="d" style="background:${e.color}"></i>${e.name}元素</span>
+      ${g.tags.map(t=>`<span class="tag ${t.includes('新手')?'t-gold':'t-blue'}">${esc(t)}</span>`).join('')}
+      <span class="tag t-blue">${g.date}</span>
+    </div>
+    <div class="d-author">
+      <div class="av">${esc(g.author.slice(0,1))}</div>
+      <div class="w"><b>${esc(g.author)}</b><small>${esc(g.school)} · 冒险等阶 58</small></div>
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px" data-act="follow">关注</button>
+    </div>
+    <div class="d-content">
+      ${g.body.map((p,i)=>`<p>${esc(p)}</p>${i===1?'<div class="figure"><img src="'+IMG.hero+'" alt="配队站位示意"></div><div class="cap">图：推荐站位与出场顺序</div>':''}`).join('')}
+      <h4>写在最后</h4>
+      <p>攻略是参考，不是标准答案。面板不够时先补等级和武器，再考虑圣遗物；实在打不过，去社区喊一声同校的搭子，往往比自己硬凹更快。</p>
+    </div>
+  </div>
+  <div class="cmt-list">
+    <h4>评论 ${comments.length}</h4>
+    ${comments.map(c=>`<div class="cmt"><div class="av">${esc(c.who.slice(0,1))}</div><div class="c"><b>${esc(c.who)}</b><p>${esc(c.text)}</p><small>${esc(c.time)}</small></div></div>`).join('')}
+  </div>
+  <div class="d-bar">
+    <div class="cmt" data-act="comment" role="button" tabindex="0">说点什么，帮到后来的人…</div>
+    <button class="icon-act ${liked?'on':''}" data-like="${g.id}" aria-pressed="${liked}" aria-label="点赞">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="${liked?'currentColor':'none'}"><path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20Z" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+    <button class="icon-act gold ${faved?'on':''}" data-fav="${g.id}" aria-pressed="${faved}" aria-label="收藏">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="${faved?'currentColor':'none'}"><path d="m12 4 2.4 5 5.6.8-4 3.9.9 5.5L12 16.6 7.1 19.2l.9-5.5-4-3.9 5.6-.8L12 4Z" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+  </div>`;
+}
+
+/* ---------- 搜索 ---------- */
+const searchHistory=['胡桃配队','钟离护盾','深渊12层','新手树脂'];
+function SearchView(){
+  const st=store.searchState;
+  return `
+  <div class="search-page">
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="icon-btn" data-back aria-label="返回" style="background:#EFF3F8;box-shadow:none">‹</button>
+      <div class="s-box" style="flex:1">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="2"/></svg>
+      <input id="sInput" placeholder="输入角色名或关键词" value="" autocomplete="off">
+      <button class="clr" data-act="clear-input" aria-label="清空"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="btn btn-primary do" style="padding:9px 14px;font-size:13px" data-act="do-search">搜索</button>
+      </div>
+    </div>
+    <div class="s-hist" id="histWrap">
+      <div class="h"><b>最近搜索</b><button data-act="clear-hist">清空</button></div>
+      <div class="h-chips" id="histChips">
+        ${searchHistory.map(h=>`<button class="chip" data-hist="${esc(h)}">${esc(h)}</button>`).join('')}
+      </div>
+    </div>
+    <div id="sResults"></div>
+  </div>`;
+}
+function searchResults(q){
+  const kw=q.trim();
+  if(!kw) { toast('请输入要搜索的内容'); return; }
+  const hits=GUIDES.filter(g=>(g.title+g.tags.join('')+g.body.join('')).includes(kw)||g.title.includes(kw.slice(0,2)));
+  const wrap=$('#sResults');
+  wrap.innerHTML=`<div class="list-head" style="padding:16px 2px 8px"><h3>搜索结果</h3><span class="count">${hits.length} 篇</span></div>
+    ${hits.length?`<div class="s-res">${hits.map(g=>`<div class="r-item" data-open="detail/${g.id}" role="button" tabindex="0">
+      <img src="${g.cover}" alt=""><div class="m"><b>${esc(g.title)}</b><small>${esc(g.author)} · ${esc(g.school)} · ♡ ${g.likes}</small></div></div>`).join('')}</div>`
+    :`<div class="state" style="padding-top:22px">
+        <svg viewBox="0 0 132 104" fill="none"><ellipse cx="66" cy="92" rx="44" ry="6" fill="#E7EDF5"/><circle cx="66" cy="44" r="22" fill="#EAF5FF"/><path d="m82 60 12 12" stroke="#59AFFF" stroke-width="3"/><path d="M56 44h20" stroke="#59AFFF" stroke-width="3" opacity=".5"/></svg>
+        <h4>没有找到相关攻略</h4><p>换个关键词试试，或者去看看热门内容。</p>
+        <button class="btn btn-primary" data-go="home">查看热门攻略</button></div>`}
+    <div class="list-head" style="padding:18px 2px 6px"><h3>相关推荐</h3><span class="count">按热度</span></div>
+    <div class="s-res">${GUIDES.filter(g=>!hits.includes(g)).slice(0,3).map(g=>`<div class="r-item" data-open="detail/${g.id}" role="button" tabindex="0">
+      <img src="${g.cover}" alt=""><div class="m"><b>${esc(g.title)}</b><small>${esc(g.author)} · ${esc(g.school)} · ♡ ${g.likes}</small></div></div>`).join('')}</div>`;
+}
+
+/* ---------- 资讯详情 ---------- */
+function NewsDetailView(id){
+  const n=NEWS.find(x=>x.id===id)||NEWS[0];
+  return `
+  <div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">资讯详情</div><div style="width:36px"></div></div>
+  <div style="padding:0 18px">
+    <span class="tag t-blue">${esc(n.type)}</span>
+    <h1 style="font-size:19px;line-height:1.4;margin:10px 0 6px">${esc(n.title)}</h1>
+    <div style="font-size:11.5px;color:var(--muted)">${esc(n.time)} · 官方公告整理</div>
+    <div style="margin-top:14px;border-radius:14px;overflow:hidden"><img src="${n.cover}" style="width:100%;display:block" alt=""></div>
+    <div class="d-content"><p>${esc(n.body)}</p>
+    <p>具体内容以游戏内公告为准。兑换码请在有效期内使用，过期后无法补领。</p></div>
+  </div>
+  <div class="cmt-list"><h4>相关攻略</h4>
+    ${GUIDES.slice(0,2).map(g=>`<div class="row-card" data-open="detail/${g.id}" style="margin-bottom:10px"><img src="${g.cover}" alt=""><div class="m"><b>${esc(g.title)}</b><small>${esc(g.author)} · ♡ ${g.likes}</small></div></div>`).join('')}
+  </div>`;
+}
+
+/* ---------- 组队 ---------- */
+function TeamView(pid){
+  const p=POSTS.find(x=>x.id===pid)||POSTS[1];
+  const applied=!!store.applied[pid];
+  return `
+  <div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">组队招募</div>
+    <button class="icon-btn" data-act="team-more" aria-label="更多">···</button></div>
+  <div class="team-wrap">
+    <div class="team-user">
+      <div class="av">${esc(p.who.slice(0,1))}</div>
+      <div style="flex:1"><b>${esc(p.who)}</b><small>${esc(p.school)} · 冒险等阶 58 · 发起 3 次组队</small></div>
+      <span class="tag t-gold">队长</span>
+    </div>
+    <div class="team-card">
+      <h2>求组队打深渊 12 层</h2>
+      <p class="desc">周四周五晚 8 点开打，需要一位会玩行秋的朋友。已有胡桃和钟离，缺一个水系辅助，语音可开可不开，打完就散。</p>
+      <div class="meta">
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6"/></svg>周四 / 周五 20:00</span>
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="1.6"/></svg>线上 · 游戏内</span>
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.6"/></svg>深渊 12 层</span>
+      </div>
+      <div class="members">
+        <div class="lbl"><span>已报名队员</span><span><b>3</b> / 4</span></div>
+        <div class="avs">
+          <div class="mav">稻</div><div class="mav">深</div><div class="mav">整</div>
+          <div class="mav empty">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-card" style="margin-top:12px">
+      <h2 style="font-size:14px">招募要求</h2>
+      <p class="desc" style="font-size:13px;margin-top:8px">角色池至少有一个可用的水系辅助；能接受语音沟通；连续两晚都有空。不要求面板，只看配合。</p>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <span class="tag t-blue">行秋 / 夜兰</span><span class="tag t-blue">可语音</span><span class="tag t-gold">守时</span>
+      </div>
+    </div>
+    <div class="draft-hint" style="margin-top:12px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5"/></svg>
+      申请后 24 小时内可撤回；队伍满员后不再接受申请
+    </div>
+  </div>
+  <div class="team-foot">
+    <button class="btn btn-plain" data-act="team-cancel">${applied?'放弃加入':'分享给同学'}</button>
+    <button class="btn ${applied?'btn-plain':'btn-primary'}" data-act="apply">${applied?'已申请 · 可撤回':'申请加入'}</button>
+  </div>`;
+}
+
+/* ---------- 我的子页 ---------- */
+function FavView(){
+  const ids=Object.keys(store.faved).filter(id=>GUIDES.some(g=>g.id===id));
+  return `<div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">我的收藏</div><div style="width:36px"></div></div>
+  ${ids.length?`<div class="fav-list">${ids.map(id=>{const g=GUIDES.find(x=>x.id===id);return `<div class="row-card" data-open="detail/${g.id}"><img src="${g.cover}" alt=""><div class="m"><b>${esc(g.title)}</b><small>${esc(g.author)} · ${esc(g.school)}</small></div></div>`;}).join('')}</div>`
+  :`<div class="state"><svg viewBox="0 0 132 104" fill="none"><ellipse cx="66" cy="92" rx="44" ry="6" fill="#E7EDF5"/><path d="m66 30 5.6 11.6 12.8 1.8-9.2 9 2.2 12.7L66 59.2 54.6 65.1l2.2-12.7-9.2-9 12.8-1.8L66 30Z" fill="none" stroke="#D4AF37" stroke-width="2.4"/></svg>
+      <h4>还没有收藏攻略</h4><p>在攻略详情页点右下角的星标，就能存到这里。</p><button class="btn btn-primary" data-go="home">去逛逛攻略库</button></div>`}`;
+}
+function MyPostsView(){
+  const rows=store.myPosts.map(p=>`<div class="row-card"><img src="${p.cover}" alt=""><div class="m"><b>${esc(p.title)}</b><small>${esc(p.time)} · ♡ ${p.likes}</small><div class="mgmt"><button class="mini" data-edit="${p.id}">编辑</button><button class="mini danger" data-del="${p.id}">删除</button></div></div></div>`).join('');
+  return `<div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">我的帖子</div><div style="width:36px"></div></div>
+  <div class="post-list">${rows||'<div class="state"><h4>还没有发布过攻略</h4><p>把你的通关心得写下来吧。</p></div>'}</div>`;
+}
+function DraftsView(){
+  const rows=store.drafts.map((d,i)=>`<div class="row-card"><img src="${IMG.hydro}" alt=""><div class="m"><b>${esc(d.title||'未命名草稿')}</b><small>${esc(d.time)} · 自动保存</small><div class="mgmt"><button class="mini" data-act="resume" data-i="${i}">继续编辑</button><button class="mini danger" data-deldraft="${i}">删除</button></div></div></div>`).join('');
+  return `<div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">草稿箱</div><div style="width:36px"></div></div>
+  ${rows?`<div class="post-list">${rows}</div>`:`<div class="state"><svg viewBox="0 0 132 104" fill="none"><ellipse cx="66" cy="92" rx="44" ry="6" fill="#E7EDF5"/><rect x="36" y="24" width="60" height="52" rx="6" fill="#fff" stroke="#D6E3F2"/><path d="M46 36h40M46 46h40M46 56h22" stroke="#D6E3F2" stroke-width="3"/></svg><h4>草稿箱是空的</h4><p>发布中断或主动保存的内容会出现在这里。</p><button class="btn btn-primary" data-go="publish">去写一篇</button></div>`}`;
+}
+function MsgsView(){
+  const items=[['系统','你发布的《胡桃零氪配队》已通过审核，现已公开可见。','1 小时前'],
+    ['评论','小鹿 评论了你的攻略：行秋换夜兰之后循环确实顺了很多。','3 小时前'],
+    ['组队','稻妻打工人 邀请你加入深渊 12 层队伍。','昨天']];
+  return `<div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">消息通知</div><div style="width:36px"></div></div>
+  <div class="post-list">${items.map(([t,c,time])=>`<div class="row-card"><div class="m"><b>${t}</b><small>${esc(c)}</small><small style="color:#B2BCC8">${time}</small></div></div>`).join('')}</div>`;
+}
+function SettingsView(){
+  return `<div class="sub-head"><button class="icon-btn" data-back aria-label="返回">‹</button><div class="t">设置</div><div style="width:36px"></div></div>
+  <div class="me-list">
+    <div class="toggle-row"><span>只在同校范围展示我的帖子</span><button class="switch" role="switch" aria-checked="true" data-toggle></button></div>
+    <div class="toggle-row"><span>接收组队邀请通知</span><button class="switch" role="switch" aria-checked="true" data-toggle></button></div>
+    <div class="toggle-row"><span>评论消息提醒</span><button class="switch" role="switch" aria-checked="false" data-toggle></button></div>
+  </div>
+  <div style="padding:18px 16px;color:var(--muted);font-size:11.5px;line-height:1.7">原神攻略社 · 学生作品演示版<br>所有内容为课程作业模拟数据，与官方无关。</div>`;
+}
+
+/* ===== 事件绑定 ===== */
+function bindViewEvents(){
+  // 通用跳转
+  view.querySelectorAll('[data-open]').forEach(el=>{
+    el.addEventListener('click',()=>go(el.dataset.open));
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(el.dataset.open);}});
+  });
+  view.querySelectorAll('[data-go]').forEach(el=>{
+    el.addEventListener('click',()=>go(el.dataset.go));
+  });
+  view.querySelectorAll('[data-back]').forEach(el=>{
+    el.addEventListener('click',()=>history.back());
+  });
+
+  // 首页
+  view.querySelectorAll('[data-act="filter"]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      view.querySelectorAll('[data-act="filter"]').forEach(c=>c.setAttribute('aria-selected','false'));
+      el.setAttribute('aria-selected','true');
+      const v=el.dataset.v;
+      if(v==='全部'){ render(); return; }
+      toast('已筛选：'+v);
+    });
+  });
+  const statesBtn=view.querySelector('[data-act="states"]');
+  if(statesBtn) statesBtn.addEventListener('click',()=>{
+    const opts=[['normal','正常浏览'],['loading','加载中（骨架屏）'],['empty','空数据'],['error','网络错误'],['guest','游客模式（未登录）']];
+    openSheet('演示 · 页面状态', '<div style="padding:2px 18px 8px;font-size:11.5px;color:#9AA5B1;line-height:1.6">切换首页的正常 / 加载 / 空 / 错误状态，并验证未登录时的互动限制。</div>'+opts.map(([k,label])=>`<button class="opt ${store.homeState===k?'on':''}" data-state="${k}">${label}<span>${store.homeState===k?'✓':''}</span></button>`).join('')+'<button class="opt" data-neterr="1">模拟断网发布</button>');
+    $('#sheetBody').querySelectorAll('[data-state]').forEach(b=>b.addEventListener('click',()=>{
+      store.homeState=b.dataset.state; closeSheet(); render();
+      if(store.homeState==='loading') setTimeout(()=>{ if(store.homeState==='loading'){ store.homeState='normal'; render(); toast('加载完成'); } },900);
+      if(store.homeState==='error') toast('加载失败，可点击重试');
+      if(store.homeState==='empty') toast('该分类暂无内容');
+      if(store.homeState==='guest'){ store.loggedIn=false; store.homeState='normal'; render(); toast('已切换为游客模式，试试点赞或收藏'); }
+    }));
+    $('#sheetBody').querySelectorAll('[data-neterr]').forEach(b=>b.addEventListener('click',()=>{ store.netFail=true; closeSheet(); toast('已开启断网模拟，可在发布页试试'); }));
+  });
+  const retry=view.querySelector('[data-act="retry"]');
+  if(retry) retry.addEventListener('click',()=>{
+    store.homeState='loading'; render();
+    setTimeout(()=>{ store.homeState='normal'; render(); toast('已恢复连接'); },900);
+  });
+  const refresh=view.querySelector('[data-act="refresh"]');
+  if(refresh) refresh.addEventListener('click',()=>toast('已刷新，最新资讯 2 小时前更新'));
+
+  // 点赞 / 收藏
+  view.querySelectorAll('[data-like]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const k=el.dataset.like;
+      const cur=!!store.liked[k];
+      store.liked[k]=!cur; SAVE();
+      const n=el.querySelector('.num');
+      if(n) n.textContent=String(parseInt(n.textContent,10)+(cur?-1:1));
+      el.setAttribute('aria-pressed',String(!cur));
+      el.classList.toggle('on',!cur);
+      const svg=el.querySelector('svg path');
+      if(svg) svg.setAttribute('fill',cur?'none':'currentColor');
+      toast(cur?'已取消点赞':'已点赞');
+    });
+  });
+  view.querySelectorAll('[data-fav]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const k=el.dataset.fav; const cur=!!store.faved[k];
+      store.faved[k]=!cur; if(!store.faved[k]) delete store.faved[k];
+      SAVE();
+      el.classList.toggle('on',!cur); el.setAttribute('aria-pressed',String(!cur));
+      const svg=el.querySelector('svg path'); if(svg) svg.setAttribute('fill',cur?'none':'currentColor');
+      el.style.transform='scale(1.18)'; setTimeout(()=>el.style.transform='',180);
+      toast(cur?'已取消收藏':'已收藏，可在「我的-我的收藏」查看');
+    });
+  });
+
+  // 评论
+  view.querySelectorAll('[data-act="comment"], [data-comment]').forEach(el=>{
+    el.addEventListener('click',async()=>{
+      const wrap=document.createElement('div');
+      wrap.innerHTML=`<div style="padding:14px 18px 6px">
+        <textarea class="inp" id="cmtIn" maxlength="120" placeholder="说说你的看法…"></textarea></div>
+        <div style="display:flex;gap:10px;padding:8px 18px 18px"><button class="btn btn-plain" style="flex:1" id="cCancel">取消</button><button class="btn btn-primary" style="flex:1" id="cSend">发送</button></div>`;
+      openSheet('评论', wrap.innerHTML);
+      const sheet=$('#sheetBody');
+      const send=()=>{
+        const v=$('#cmtIn',sheet).value.trim();
+        const id=el.dataset.comment || parseHash().id;
+        if(!v){ toast('请输入评论内容'); return; }
+        store.counted[id]=v; closeSheet(); render(); toast('评论已发送');
+      };
+      $('#cSend',sheet).addEventListener('click',send);
+      $('#cCancel',sheet).addEventListener('click',closeSheet);
+    });
+  });
+
+  // 分享 / 关注 / 匹配
+  view.querySelectorAll('[data-share]').forEach(el=>el.addEventListener('click',()=>toast('已生成分享卡片，可发给同校搭子')));
+  const follow=view.querySelector('[data-act="follow"]');
+  if(follow) follow.addEventListener('click',()=>{ follow.textContent='已关注'; follow.classList.add('btn-plain'); toast('已关注作者'); });
+  const match=view.querySelector('[data-act="match"]');
+  if(match) match.addEventListener('click',()=>{ toast('正在为你匹配同校搭子…'); setTimeout(()=>toast('已匹配 3 位同校玩家，去社区看看'),1200); });
+
+  // 发布页
+  if(currentRoute==='publish') bindPublish();
+  // 组队
+  if(currentRoute==='team') bindTeam();
+}
+
+function bindPublish(){
+  const title=$('#pTitle'), body=$('#pBody');
+  title.addEventListener('input',()=>{ pubTemp.title=title.value; $('#cntTitle').textContent=title.value.length; title.classList.remove('err'); $('#errTitle').classList.remove('show'); });
+  body.addEventListener('input',()=>{ pubTemp.body=body.value; $('#cntBody').textContent=body.value.length; body.classList.remove('err'); $('#errBody').classList.remove('show'); });
+  view.querySelectorAll('[data-tag]').forEach(b=>b.addEventListener('click',()=>{
+    const t=b.dataset.tag;
+    const on=pubTemp.tags.includes(t);
+    pubTemp.tags = on? pubTemp.tags.filter(x=>x!==t) : [...pubTemp.tags,t];
+    b.setAttribute('aria-pressed',String(!on));
+    $('#errTag').classList.remove('show');
+  }));
+  view.querySelectorAll('[data-act="add-img"]').forEach(b=>b.addEventListener('click',()=>{
+    const pool=[IMG.pyro,IMG.geo,IMG.hydro,IMG.electro];
+    pubTemp.imgs.push(pool[pubTemp.imgs.length%pool.length]); render(); toast('已添加配图（演示）');
+  }));
+  view.querySelectorAll('[data-del-img]').forEach(b=>b.addEventListener('click',()=>{
+    pubTemp.imgs.splice(Number(b.dataset.delImg),1); render();
+  }));
+  view.querySelectorAll('[data-act="save-draft"]').forEach(b=>b.addEventListener('click',()=>saveDraft()));
+  view.querySelectorAll('[data-act="publish"]').forEach(b=>b.addEventListener('click',doPublish));
+  view.querySelectorAll('[data-act="pub-back"]').forEach(b=>b.addEventListener('click',async()=>{
+    if(!pubTemp.title && !pubTemp.body){ history.back(); return; }
+    const ok=await confirmDialog({title:'离开编辑页？',content:'当前内容尚未发布，离开后将自动保存为草稿。',okText:'保存并离开'});
+    if(ok){ saveDraft(true); history.back(); }
+  }));
+  // 自动保存
+  clearInterval(window._autoSave);
+  window._autoSave=setInterval(()=>{ if(currentRoute==='publish'&&(pubTemp.title||pubTemp.body)) saveDraft(false); },10000);
+}
+function saveDraft(showToast=true){
+  if(!pubTemp.title && !pubTemp.body){ if(showToast) toast('还没有内容可以保存'); return; }
+  const same=store.drafts.findIndex(d=>d.title===pubTemp.title&&d.body===pubTemp.body);
+  if(same>-1) store.drafts.splice(same,1);
+  store.drafts.unshift({title:pubTemp.title,body:pubTemp.body,tags:[...pubTemp.tags],time:'刚刚'});
+  SAVE();
+  if(showToast) toast('已保存草稿，可在「我的-草稿箱」继续编辑');
+}
+async function doPublish(){
+  const btn=$('#btnPublish');
+  let okAll=true;
+  if(!pubTemp.title.trim()){ $('#errTitle').classList.add('show'); $('#pTitle').classList.add('err'); okAll=false; }
+  if(!pubTemp.tags.length){ $('#errTag').classList.add('show'); okAll=false; }
+  if(!pubTemp.body.trim()){ $('#errBody').classList.add('show'); $('#pBody').classList.add('err'); okAll=false; }
+  if(!okAll){ toast('还有必填项没有完成'); return; }
+  if(!store.loggedIn){
+    const r=await confirmDialog({title:'需要登录',content:'登录后即可发布攻略，是否立即登录？',okText:'去登录'});
+    if(!r){ toast('登录后即可参与互动'); return; }
+    store.loggedIn=true; toast('已登录');
+  }
+  const goOn=await confirmDialog({title:'发布确认',content:'发布后所有同校玩家都能看到，内容将进入审核。确认发布？',okText:'确认发布'});
+  if(!goOn) return;
+  btn.disabled=true; btn.innerHTML='<span class="loading-dot"></span>发布中';
+  setTimeout(()=>{
+    if(store.netFail){
+      const same=store.drafts.findIndex(d=>d.title===pubTemp.title&&d.body===pubTemp.body);
+  if(same>-1) store.drafts.splice(same,1);
+  store.drafts.unshift({title:pubTemp.title,body:pubTemp.body,tags:[...pubTemp.tags],time:'刚刚'});
+      SAVE();
+      btn.disabled=false; btn.textContent='发布';
+      toast('网络异常，已为你保存草稿');
+      return;
+    }
+    store.myPosts.unshift({id:'mp'+Date.now(),title:pubTemp.title,body:pubTemp.body,cover:IMG.geo,time:'刚刚',likes:0});
+    pubTemp.title=''; pubTemp.body=''; pubTemp.tags=[]; pubTemp.imgs=[];
+    SAVE();
+    toast('发布成功');
+    setTimeout(()=>{ go('myposts'); },900);
+  },900);
+}
+
+function bindTeam(){
+  const apply=view.querySelector('[data-act="apply"]');
+  if(apply) apply.addEventListener('click',async()=>{
+    const pid=parseHash().id;
+    if(store.applied[pid]){
+      const ok=await confirmDialog({title:'撤回申请',content:'撤回后队长将看不到你的申请，确定撤回？',okText:'撤回',danger:true});
+      if(ok){ delete store.applied[pid]; SAVE(); render(); toast('已撤回申请'); }
+      return;
+    }
+    const ok=await confirmDialog({title:'发送组队申请',content:'向队长发送申请，队长同意后才能进入队伍。确定申请？',okText:'确认申请'});
+    if(ok){ store.applied[pid]=true; SAVE(); render(); toast('申请已发送，等待队长确认'); }
+  });
+  const cancel=view.querySelector('[data-act="team-cancel"]');
+  if(cancel) cancel.addEventListener('click',async()=>{
+    if(!store.applied[parseHash().id]){ toast('已生成队伍分享卡片'); return; }
+    const ok=await confirmDialog({title:'放弃加入',content:'放弃后队长将看到你已退出，确定放弃？',okText:'确定放弃',danger:true});
+    if(ok){ delete store.applied[parseHash().id]; SAVE(); history.back(); }
+  });
+  const more=view.querySelector('[data-act="team-more"]');
+  if(more) more.addEventListener('click',()=>openSheet('更多操作','<button class="opt" data-act="report">举报该招募<span>›</span></button><button class="opt" data-act="copy">复制队伍信息<span>›</span></button>'));
+}
+
+/* 未登录拦截 */
+document.addEventListener('click', async e=>{
+  if(store.loggedIn) return;
+  const t=e.target.closest('[data-like],[data-fav],[data-comment],[data-act="comment"],[data-act="apply"]');
+  if(!t) return;
+  e.stopPropagation(); e.preventDefault();
+  const ok=await confirmDialog({title:'需要登录',content:'登录后才能点赞、收藏和评论，是否立即登录？',okText:'立即登录'});
+  if(ok){
+    store.loggedIn=true;
+    const key = t.dataset.like?`[data-like="${t.dataset.like}"]` : (t.dataset.fav?`[data-fav="${t.dataset.fav}"]` : null);
+    render();
+    toast('登录成功，可以继续操作了');
+    if(key){ const again=document.querySelector(key); if(again) again.click(); }
+  }
+}, true);
+
+/* 我的子页事件 */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-del]');
+  if(t){
+    const id=t.dataset.del;
+    const ok=await confirmDialog({title:'删除攻略',content:'删除后将无法恢复，确定要删除这篇攻略吗？',okText:'确认删除',danger:true});
+    if(ok){ store.myPosts=store.myPosts.filter(p=>p.id!==id); SAVE(); render(); toast('已删除'); }
+  }
+  const ed=e.target.closest('[data-edit]');
+  if(ed){ toast('演示版暂不支持在线编辑'); }
+  const rd=e.target.closest('[data-deldraft]');
+  if(rd){
+    const i=Number(rd.dataset.deldraft);
+    const ok=await confirmDialog({title:'删除草稿',content:'删除后无法恢复，确定删除？',okText:'删除',danger:true});
+    if(ok){ store.drafts.splice(i,1); SAVE(); render(); toast('草稿已删除'); }
+  }
+  const rs=e.target.closest('[data-act="resume"]');
+  if(rs){
+    const d=store.drafts[Number(rs.dataset.i)];
+    pubTemp.title=d.title; pubTemp.body=d.body; pubTemp.tags=d.tags||[]; pubTemp.imgs=[];
+    go('publish');
+  }
+  const tg=e.target.closest('[data-toggle]');
+  if(tg){ tg.setAttribute('aria-checked', tg.getAttribute('aria-checked')==='true'?'false':'true'); }
+});
+
+/* Tab 切换 */
+$('#tabbar').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b) return;
+  const tab=b.dataset.tab;
+  if(tab==='square'){ go('square'); return; }
+  go(tab);
+});
+
+/* 搜索交互（渲染后绑定） */
+const origRender=render;
+render=function(){
+  origRender();
+  if(currentRoute==='search'){
+    const inp=$('#sInput'); const hist=$('#histChips');
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ searchResults(inp.value); inp.blur(); } });
+    const clearBtn=view.querySelector('[data-act="clear-input"]');
+    if(clearBtn) clearBtn.addEventListener('click',()=>{ inp.value=''; $('#sResults').innerHTML=''; inp.focus(); });
+    const doBtn=view.querySelector('[data-act="do-search"]');
+    if(doBtn) doBtn.addEventListener('click',()=>searchResults(inp.value));
+    if(hist) hist.querySelectorAll('[data-hist]').forEach(c=>c.addEventListener('click',()=>{ inp.value=c.dataset.hist; searchResults(inp.value); }));
+    const clearHist=view.querySelector('[data-act="clear-hist"]');
+    if(clearHist) clearHist.addEventListener('click',()=>{ $('#histWrap').style.display='none'; toast('已清空搜索历史'); });
+  }
+  view.querySelectorAll('[data-open]').forEach(el=>{
+    if(el._bound) return; el._bound=true;
+  });
+};
+
+/* 启动 */
+store.homeState='loading';
+render();
+setTimeout(()=>{ store.homeState='normal'; if(currentRoute==='home') render(); },900);
+</script>
+</body>
+</html>
